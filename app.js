@@ -1,6 +1,6 @@
 
 
-let api = 'https://frantic-waders-frog.cyclic.app/'
+let api = 'https://amethyst-caterpillar-boot.cyclic.app/'
 function ClassName(){
     // Make it 
 }
