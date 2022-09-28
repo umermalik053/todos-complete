@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malik List App</title>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="Style.css">
+
+</head>
+
+<body>
+
+  <input class="form-control" id="ClassName" onsubmit="ClassName();" type="text" placeholder="Class Name">
+  <button class="btn btn-primary btn-delete" onclick="removelist(); return false">Delete All</button>
+  <p  id="heading" class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+    <u> Malik List App</u>
+  </p>
+  <div class="link">
+    <center>
+      <a href="https://github.com/umermalik053" target="_blank">Github
+        <ion-icon name="logo-github">Github</ion-icon>
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100027622470834" target="_blank">Facebook
+        <ion-icon name="logo-facebook">Facebook</ion-icon>
+      </a>
+    </center>
+  </div>
+
+  <!-- <section class="vh-100"> -->
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <!-- <div class="col"> -->
+          <div class="card" id="list1"
+            style="border-radius: 75px; background-image: url(https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000)">
+            <div class="card-body py-4 px-4 px-md-5">
+              <div class="icon">
+              </div>
+
+              <div class="pb-2">
+                <div class="card">
+                  <form onsubmit="list(); return false">
+                    <div class="card-body">
+                      <div class="d-flex flex-row align-items-center">
+                        <input type="text" class="form-control form-control-lg" id="addData" placeholder="Write Something.."
+                          required>
+                        <!-- <a href="#!" data-mdb-toggle="tooltip" title="Set due date"><i
+                            class="fas fa-calendar-alt fa-lg me-3"></i></a> -->
+                        <div>
+                          <button type="submit" class="btn btn-primary btn-add">Click</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </form><br><br>
+                </div>
+              </div>
+                  <center>
+                  <button id="ref" class="btn btn-primary" onclick="allList();">Refresh</button>
+                </center>
+
+              <hr class="my-4">
+
+              <div id="result">
+                <!-- <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
+                  <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                    <p class="lead fw-normal mb-0">Buy groceries for next week</p>
+                  </li>
+                </ul> -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>
