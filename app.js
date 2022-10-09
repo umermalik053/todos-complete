@@ -75,4 +75,4 @@ function renderItems(item) {
 
 }
 allList()
-// setInterval(allList, 5000)
+setInterval(allList, 5000)
