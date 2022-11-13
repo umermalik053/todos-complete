@@ -1,31 +1,28 @@
 
 
-// let api = 'https://amethyst-caterpillar-boot.cyclic.app/'
-let api = 'https://easy-teal-salamander-hose.cyclic.app';
-function Classid() {
-    let id = document.querySelector("#classid").value
-    axios.post('/id', {
-        classid: id
+let api = 'https://easy-teal-salamander-hose.cyclic.app'
+// let api = (document.location.protocol === 'https:') ?
+//     "https"
+//     :
+//     "http://localhost:3000";
 
 
-    })
-        .then(function (response) {
-            console.log(response)
-        })
-
-
-
-
-}
 function list() {
-    document.querySelector("#addData").innerHTML = ""
-    let data = document.querySelector("#addData")
+    // document.querySelector("#addData").innerHTML = ""
+    let data = document.querySelector("#addData").value
     // console.log(data);
     axios.post(`${api}/todo`, {
-        text: data.value
+        text: data
     })
         .then(function (response) {
-            document.querySelector("#result").innerHTML = ""
+            allList();
+            console.log(response.data)
+
+            document.querySelector("#message").innerHTML = response.data.message
+            setTimeout(() => {
+                document.querySelector("#message").innerHTML = "";
+            }, 2000)
+            // document.querySelector("#result").innerHTML = response.data.text
             console.log(response.data)
             response.data.data.map(eachTodo => {
                 renderItems(eachTodo)
@@ -40,12 +37,27 @@ function list() {
 function allList() {
     axios.get(`${api}/todos`)
         .then(function (response) {
-            // document.querySelector("#result").innerHTML = "Data";
+            document.querySelector("#result").innerHTML = " ";
             // console.log(response.data)
             response.data.data.map(eachTodo => {
-                document.querySelector("#result").innerHTML += eachTodo.text
+                document.querySelector("#result").innerHTML += `<span id='span-${eachTodo._id}'>${eachTodo.text}</span>`;
+                document.querySelector("#result").innerHTML +=
+                    `<form id='form-${eachTodo._id}' style="display: none;" onsubmit="updatetodo('${eachTodo._id} ');return false" '>
+                <input id='input-${eachTodo._id}' value='${eachTodo.text}' />
+                <button id="button1" type="submit"> 
+                Update
+</button>
+ 
+ 
+ 
+
+
+                </form>`
+            
+                document.querySelector("#result").innerHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<span style="margin-left:100px; display:flex; justify-content:flex-end; margin-bottom:10px; "><i id='delete-${eachTodo._id}'onclick="deleteone('${eachTodo._id}')" class="fa-solid fa-trash"style="color:red"></i>
+                &nbsp;<i onclick="editTodo('${eachTodo._id}')" id='edit-${eachTodo._id}'  class="fa-solid fa-pen-to-square"></i></span>`
                 document.querySelector("#result").innerHTML += "<br>"
-                console.log("eachTodo",eachTodo);
+                console.log("eachTodo", eachTodo);
                 // renderItems(eachTodo)
             })
         })
@@ -53,14 +65,26 @@ function allList() {
             console.log(error);
         })
 }
-function removelist() {
-    let code = prompt("Enter Password ")
-    if (code === "Malik") {
-        axios.delete(`${api}/todos`)
-        document.querySelector("#addData").value = ""
-        renderItems()
-    } else alert("Worng Password")
+let removelist = async () => {
+
+    try {
+        let response = await axios.delete(`${api}/todos`)
+        let code = prompt("Enter Password ")
+        if (code === "Malik") {
+            document.querySelector("#message").innerHTML = response.data.message
+            setTimeout(() => {
+                document.querySelector("#message").innerHTML = ""
+            }, 2000);
+
+            document.querySelector("#result").innerHTML = "";
+        } else alert("wrong password")
+    } catch (error) {
+        console.log("error: ", error);
+    }
+
+
 }
+
 function renderItems(item) {
     if (item) {
         let todo = `<ul class="list-group list-group-horizontal rounded-0 bg-transparent">
@@ -74,5 +98,52 @@ function renderItems(item) {
     }
 
 }
+let deleteone = async (id) => {
+    try {
+        let response = await axios.delete(`${api}/todo/${id}`)
+
+        document.querySelector("#message").innerHTML += response.data.message
+        setTimeout(() => {
+            document.querySelector("#message").innerHTML = ""
+        }, 2000);
+        allList();
+    } catch (error) {
+        console.log("error: ", error)
+    }
+}
+let editTodo = async (id) => {
+
+    console.log("edit id: ", id)
+    document.querySelector(`#form-${id}`).style.display = "inline"
+
+    document.querySelector(`#span-${id}`).style.display = "none"
+    document.querySelector(`#delete-${id}`).style.display = "none"
+    document.querySelector(`#edit-${id}`).style.display = "none"
+}
+
+let updatetodo = async (id) => {
+    console.log("update id",id)
+    let updated = document.querySelector(`#input-${id}`).value
+    try {
+        let response = await axios.put(`${api}/todo/${id}`,{
+            text:updated
+        })
+
+        document.querySelector("#message").innerHTML += response.data.message
+        setTimeout(() => {
+            document.querySelector("#message").innerHTML = ""
+        }, 2000);
+        allList();
+    } catch (error) {
+        console.log("error: ", error)
+    }
+}
 allList()
-setInterval(allList, 5000)
+// setInterval(allList, 500)
+
+
+// document.querySelector("#result").innerHTML += `&nbsp;&nbsp;&nbsp;&nbsp;<><button id='delete-${eachTodo._id}'onclick="deleteone('${eachTodo._id}')"><i class="fa-solid fa-trash"style="color:red"></i></button>
+//                 &nbsp;<button id='edit-${eachTodo._id}'onclick="editone('${eachTodo.id}')"><i class="fa-solid fa-pen-to-square"></i></button>`
+//                 document.querySelector("#result").innerHTML += "<br>"
+//                 console.log("eachTodo", eachTodo);
+//                 // renderItems(eachTodo)

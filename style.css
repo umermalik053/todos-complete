@@ -63,4 +63,16 @@ p{
         /* background-color: black; */
 
     }
+   #button1{
+    border-bottom-left-radius: 30%;
+    border-top-right-radius: 30%;
+    color: azure;
+    background-color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
+    }
+    #button:hover{
+        background-color: white;
+        color: black;
+        font-size: 60%;
+    }
